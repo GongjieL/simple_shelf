@@ -10,58 +10,58 @@
     </parent>
 
     <packaging>pom</packaging>
-    <groupId>com.gjie</groupId>
-    <artifactId>kgboot</artifactId>
+    <groupId>com.zhongji</groupId>
+    <artifactId>simple_shelf</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>kgboot</name>
-    <description>kgboot</description>
+    <name>simple_shelf</name>
+    <description>simple_shelf</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
     <modules>
-        <module>kgboot-web</module>
-        <module>kgboot-common</module>
-        <module>kgboot-core</module>
-        <module>kgboot-dao</module>
-        <module>kgboot-util</module>
-        <module>kgboot-api</module>
+        <module>simple_shelf-web</module>
+        <module>simple_shelf-common</module>
+        <module>simple_shelf-core</module>
+        <module>simple_shelf-dao</module>
+        <module>simple_shelf-util</module>
+        <module>simple_shelf-api</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.gjie</groupId>
-                <artifactId>kgboot-web</artifactId>
+                <groupId>com.zhongji</groupId>
+                <artifactId>simple_shelf-web</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
             <dependency>
-                <groupId>com.gjie</groupId>
-                <artifactId>kgboot-common</artifactId>
+                <groupId>com.zhongji</groupId>
+                <artifactId>simple_shelf-common</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
             <dependency>
-                <groupId>com.gjie</groupId>
-                <artifactId>kgboot-core</artifactId>
+                <groupId>com.zhongji</groupId>
+                <artifactId>simple_shelf-core</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
             <dependency>
-                <groupId>com.gjie</groupId>
-                <artifactId>kgboot-dao</artifactId>
+                <groupId>com.zhongji</groupId>
+                <artifactId>simple_shelf-dao</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
             <dependency>
-                <groupId>com.gjie</groupId>
-                <artifactId>kgboot-util</artifactId>
+                <groupId>com.zhongji</groupId>
+                <artifactId>simple_shelf-util</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
             <dependency>
-                <groupId>com.gjie</groupId>
-                <artifactId>kgboot-api-spring-boot-starter</artifactId>
+                <groupId>com.zhongji</groupId>
+                <artifactId>simple_shelf-api-spring-boot-starter</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <!--mybatis-plus-->
@@ -69,6 +69,12 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>5.1.47</version>
+            </dependency>
+            <!--oracle-->
+            <dependency>
+                <groupId>cn.easyproject</groupId>
+                <artifactId>ojdbc6</artifactId>
+                <version>12.1.0.2.0</version>
             </dependency>
             <!-- 数据库连接池-->
             <dependency>

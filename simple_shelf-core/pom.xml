@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.zhongji</groupId>
+		<artifactId>simple_shelf</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath><!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.zhongji</groupId>
+	<artifactId>simple_shelf-core</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>simple_shelf-common</name>
+	<description>simple_shelf-core</description>
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.zhongji</groupId>
+			<artifactId>simple_shelf-dao</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.zhongji</groupId>
+			<artifactId>simple_shelf-util</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.zhongji</groupId>
+			<artifactId>simple_shelf-api-spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.zhongji</groupId>
+			<artifactId>simple_shelf-common</artifactId>
+		</dependency>
+
+	</dependencies>
+
+
+</project>

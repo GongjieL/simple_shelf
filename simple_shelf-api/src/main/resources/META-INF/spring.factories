@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.zhongji.simpleshelf.api.config.http.HttpApiConfig,\
+  com.zhongji.simpleshelf.api.config.mq.kafka.KafkaConfig,\
+  com.zhongji.simpleshelf.api.config.mq.rabbitmq.RabbitmqConfig,\
+  com.zhongji.simpleshelf.api.config.redis.KgBootRedisConfig

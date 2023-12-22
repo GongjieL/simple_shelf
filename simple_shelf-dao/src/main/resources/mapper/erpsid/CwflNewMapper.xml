@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhongji.simpleshelf.dao.mapper.erpsid.CwflNewMapper">
+
+    <resultMap id="BaseResultMap" type="com.zhongji.simpleshelf.dao.domain.erpsid.CwflNew">
+            <id property="fl" column="FL" jdbcType="VARCHAR"/>
+            <result property="shuom" column="SHUOM" jdbcType="VARCHAR"/>
+            <result property="xuanz" column="XUANZ" jdbcType="CHAR"/>
+            <result property="gongylx" column="GONGYLX" jdbcType="VARCHAR"/>
+            <result property="liyl" column="LIYL" jdbcType="FLOAT"/>
+            <result property="tgfltqq" column="TGFLTQQ" jdbcType="FLOAT"/>
+            <result property="kemu" column="KEMU" jdbcType="VARCHAR"/>
+            <result property="hangxm" column="HANGXM" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        FL,SHUOM,XUANZ,
+        GONGYLX,LIYL,TGFLTQQ,
+        KEMU,HANGXM
+    </sql>
+
+    <select id="listSomeB" resultType="com.zhongji.simpleshelf.dao.domain.erpsid.CwflNew">
+        select cwfl_new.shuom as fld0,tycw101.xinghgg as fld1,tycp201.naiwx as fld2,tycw101.vin as fld3,yzvin001.cheh as fld4,tycw101.faph as fld5,tycw100.kaiprq as fld6,tycw100.kehsm as fld7,tycw101.het as fld8,tycw100.heth as fld9,yzvin001.jisgf as fld10,tycw101.shul as fld15,yzvin001.biaop as fld18,tycw100.danjlb as fld35,tyjcdict.zhidxh as fld40,tyjcdict.shuom as fld45,tycw100.bizh as fld47,tyjc041.duanm as fld48,tycw101.hansj as fld53,tycw100.shuie as fld56,tycw100.waibje as fld60,tycw100.zongje as fld62,tycw100.shuilv as fld65,tycw100.huilv as fld70,tyjc021.shuih as fld75,tycw100.faydh as fld100,tysc301.shengcdd as fld105,tycw100.pingzrq as fld110,tycw100.yizcw as fld115,tycw101.wuliao as fld120,tyjc061.shuom as fld125,tyxs211.yewy as fld130,tyxs211.hsheth as fld135,tycp201.xiangm as fld140,tycp202.gongcbh as fld145 from cwfl_new,tycw101,tycp201,yzvin001,tycw100,tyjcdict,tyjc041,tyjc021,tysc301,tyjc061,tyxs211,tycp202
+        where tycw100.faph=tycw101.faph
+        and tycw100.danjlb=tycw101.danjlb
+        and tycw100.danjlb=tyjcdict.zhidxh(+)
+        and tyjcdict.zhidlb='1603'
+        and tyjcdict.zhidxh like 'S%'
+        and tycw101.vin=yzvin001.vin(+)
+        and         tycw100.bizh=tyjc041.huob(+)
+        and          tycw100.kehu=tyjc021.kehu(+)
+        and         yzvin001.jisgf=tycp201.xiangm(+)
+        and         tycp201.cwfl1=cwfl_new.fl(+)
+        and         tycw101.vin=tysc301.vin(+)
+        and      tycw101.wuliao=tyjc061.wuliao(+)
+        and      tycp201.gongcbh=tycp202.gongcbh(+)
+        and   tycp202.heth=tyxs211.heth(+)
+        and tycw100.kaiprq>=to_date('2023-11-01','yyyy-mm-dd')
+        and tycw100.kaiprq &lt;=to_date('2023-11-30','yyyy-mm-dd')
+    </select>
+
+</mapper>
