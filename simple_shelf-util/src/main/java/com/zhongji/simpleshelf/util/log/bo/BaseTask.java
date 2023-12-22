@@ -1,4 +1,4 @@
-package com.zhongji.simple_shelf.util.log.bo;
+package com.zhongji.simpleshelf.util.log.bo;
 
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;

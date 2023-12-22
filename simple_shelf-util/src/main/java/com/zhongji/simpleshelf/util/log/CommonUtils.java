@@ -1,9 +1,9 @@
-package com.zhongji.simple_shelf.util.log;
+package com.zhongji.simpleshelf.util.log;
 
 import com.alibaba.fastjson.JSON;
 import com.zhongji.simpleshelf.common.constant.ErrorEnum;
 import com.zhongji.simpleshelf.common.exception.BaseException;
-import com.zhongji.simple_shelf.util.log.bo.BaseTask;
+import com.zhongji.simpleshelf.util.log.bo.BaseTask;
 
 import java.util.Arrays;
 import java.util.concurrent.DelayQueue;
