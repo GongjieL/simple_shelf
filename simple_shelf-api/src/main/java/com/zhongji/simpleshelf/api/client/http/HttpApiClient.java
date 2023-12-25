@@ -3,7 +3,7 @@ package com.zhongji.simpleshelf.api.client.http;
 import com.alibaba.fastjson.JSON;
 import com.zhongji.simpleshelf.api.strategy.http.AbstractRespProcessor;
 import com.zhongji.simpleshelf.api.strategy.http.RespProcessorFactory;
-import com.zhongji.simpleshelf.common.constant.ErrorEnum;
+import com.zhongji.simpleshelf.common.enums.ErrorEnum;
 import com.zhongji.simpleshelf.common.exception.BaseException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;

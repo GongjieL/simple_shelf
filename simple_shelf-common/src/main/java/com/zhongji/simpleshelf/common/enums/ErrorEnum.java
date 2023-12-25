@@ -1,4 +1,4 @@
-package com.zhongji.simpleshelf.common.constant;
+package com.zhongji.simpleshelf.common.enums;
 
 public enum ErrorEnum {
     UN_KNOWN_ERROR(0, "未知错误"),

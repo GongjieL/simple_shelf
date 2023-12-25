@@ -1,7 +1,7 @@
 package com.zhongji.simpleshelf.api.client.mq.rabbitmq;
 
 import com.alibaba.fastjson.JSON;
-import com.zhongji.simpleshelf.common.constant.ErrorEnum;
+import com.zhongji.simpleshelf.common.enums.ErrorEnum;
 import com.zhongji.simpleshelf.common.exception.BaseException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.core.Message;

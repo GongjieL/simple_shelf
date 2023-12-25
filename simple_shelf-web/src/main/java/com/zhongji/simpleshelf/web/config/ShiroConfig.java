@@ -76,7 +76,8 @@ public class ShiroConfig {
 
         //授权，正常的情况下，未授权跳转到未授权页面
         filter.put("/test/abc", "anon");
-        filter.put("/frontJs/index", "anon");
+//        filter.put("/frontJs/index", "anon");
+        filter.put("/index", "anon");
         filter.put("/**", "authc");
         bean.setFilterChainDefinitionMap(filter);
 

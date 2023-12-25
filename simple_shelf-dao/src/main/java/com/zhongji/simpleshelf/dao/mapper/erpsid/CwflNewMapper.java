@@ -1,10 +1,13 @@
 package com.zhongji.simpleshelf.dao.mapper.erpsid;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
+import com.zhongji.simpleshelf.dao.domain.StatisticsSummary;
 import com.zhongji.simpleshelf.dao.domain.erpsid.CwflNew;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,7 +19,9 @@ import java.util.List;
 @Mapper
 @DS("zhongji1")
 public interface CwflNewMapper extends BaseMapper<CwflNew> {
-    List<CwflNew> listSomeB(String a);
+
+    List<StatisticsSummary> listErpSidSummary(@Param("startDate")Date startDate,
+                                              @Param("endDate")Date endDate);
 
 }
 

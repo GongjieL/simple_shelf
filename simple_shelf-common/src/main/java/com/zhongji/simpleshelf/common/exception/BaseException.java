@@ -1,7 +1,7 @@
 package com.zhongji.simpleshelf.common.exception;
 
 
-import com.zhongji.simpleshelf.common.constant.ErrorEnum;
+import com.zhongji.simpleshelf.common.enums.ErrorEnum;
 
 public class BaseException extends RuntimeException {
     private ErrorEnum error = ErrorEnum.UN_KNOWN_ERROR;

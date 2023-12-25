@@ -9,6 +9,7 @@ import org.springframework.kafka.annotation.EnableKafka;
 @SpringBootApplication(scanBasePackages = {"com.zhongji.simpleshelf"})
 @PropertySource({"classpath:application.properties",
         "classpath:application-common.properties",
+        "classpath:application-core.properties",
         "classpath:application-util.properties",
         "classpath:application-mysql-data.properties",
         "classpath:application-dao.properties"})

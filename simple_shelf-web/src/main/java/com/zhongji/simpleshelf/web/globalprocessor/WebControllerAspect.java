@@ -1,7 +1,7 @@
 package com.zhongji.simpleshelf.web.globalprocessor;
 
 import com.alibaba.fastjson.JSON;
-import com.zhongji.simpleshelf.common.constant.ErrorEnum;
+import com.zhongji.simpleshelf.common.enums.ErrorEnum;
 import com.zhongji.simpleshelf.common.exception.BaseException;
 import com.zhongji.simpleshelf.web.response.BaseWebResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -29,7 +29,7 @@ public class WebControllerAspect {
 
     Logger logger = LogManager.getLogger(WebControllerAspect.class);
 
-    @Pointcut("execution (* com.gjie.kgboot.web.controller.*.*(..))&& !execution (* com.gjie.kgboot.web.controller.FrontJsController.*(..))")
+    @Pointcut("execution (* com.zhongji.simpleshelf.web.controller.*.*(..))&& !execution (* com.zhongji.simpleshelf.web.controller.FrontJsController.*(..))")
     public void webGlobalPointCut() {
 
     }

@@ -1,7 +1,7 @@
-package com.zhongji.simpleshelf.util.log;
+package com.zhongji.simpleshelf.util;
 
 import com.alibaba.fastjson.JSON;
-import com.zhongji.simpleshelf.common.constant.ErrorEnum;
+import com.zhongji.simpleshelf.common.enums.ErrorEnum;
 import com.zhongji.simpleshelf.common.exception.BaseException;
 import com.zhongji.simpleshelf.util.log.bo.BaseTask;
 

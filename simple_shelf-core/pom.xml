@@ -11,7 +11,7 @@
 	<groupId>com.zhongji</groupId>
 	<artifactId>simple_shelf-core</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>simple_shelf-common</name>
+	<name>simple_shelf-core</name>
 	<description>simple_shelf-core</description>
 	<properties>
 		<java.version>1.8</java.version>

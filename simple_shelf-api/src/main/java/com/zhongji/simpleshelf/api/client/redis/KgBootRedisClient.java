@@ -1,6 +1,6 @@
 package com.zhongji.simpleshelf.api.client.redis;
 
-import com.zhongji.simpleshelf.util.log.CommonUtils;
+import com.zhongji.simpleshelf.util.CommonUtils;
 import com.zhongji.simpleshelf.util.log.bo.BaseTask;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;

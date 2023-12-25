@@ -1,51 +1,55 @@
 package com.zhongji.simpleshelf.dao.domain.erpsid;
 
 import java.io.Serializable;
+
 import lombok.Data;
 
 /**
- * 
  * @TableName CWFL_NEW
  */
 @Data
 public class CwflNew implements Serializable {
+
+    private String subType;
+
+    private Integer num;
     /**
-     * 
+     *
      */
     private String fl;
 
     /**
-     * 
+     *
      */
     private String shuom;
 
     /**
-     * 
+     *
      */
     private String xuanz;
 
     /**
-     * 
+     *
      */
     private String gongylx;
 
     /**
-     * 
+     *
      */
     private Double liyl;
 
     /**
-     * 
+     *
      */
     private Double tgfltqq;
 
     /**
-     * 
+     *
      */
     private String kemu;
 
     /**
-     * 
+     *
      */
     private String hangxm;
 
@@ -64,13 +68,13 @@ public class CwflNew implements Serializable {
         }
         CwflNew other = (CwflNew) that;
         return (this.getFl() == null ? other.getFl() == null : this.getFl().equals(other.getFl()))
-            && (this.getShuom() == null ? other.getShuom() == null : this.getShuom().equals(other.getShuom()))
-            && (this.getXuanz() == null ? other.getXuanz() == null : this.getXuanz().equals(other.getXuanz()))
-            && (this.getGongylx() == null ? other.getGongylx() == null : this.getGongylx().equals(other.getGongylx()))
-            && (this.getLiyl() == null ? other.getLiyl() == null : this.getLiyl().equals(other.getLiyl()))
-            && (this.getTgfltqq() == null ? other.getTgfltqq() == null : this.getTgfltqq().equals(other.getTgfltqq()))
-            && (this.getKemu() == null ? other.getKemu() == null : this.getKemu().equals(other.getKemu()))
-            && (this.getHangxm() == null ? other.getHangxm() == null : this.getHangxm().equals(other.getHangxm()));
+                && (this.getShuom() == null ? other.getShuom() == null : this.getShuom().equals(other.getShuom()))
+                && (this.getXuanz() == null ? other.getXuanz() == null : this.getXuanz().equals(other.getXuanz()))
+                && (this.getGongylx() == null ? other.getGongylx() == null : this.getGongylx().equals(other.getGongylx()))
+                && (this.getLiyl() == null ? other.getLiyl() == null : this.getLiyl().equals(other.getLiyl()))
+                && (this.getTgfltqq() == null ? other.getTgfltqq() == null : this.getTgfltqq().equals(other.getTgfltqq()))
+                && (this.getKemu() == null ? other.getKemu() == null : this.getKemu().equals(other.getKemu()))
+                && (this.getHangxm() == null ? other.getHangxm() == null : this.getHangxm().equals(other.getHangxm()));
     }
 
     @Override

@@ -1,11 +1,16 @@
 package com.zhongji.simpleshelf.web.controller;
 
+import com.zhongji.simpleshelf.common.bo.bi.orderandinvoice.BDOrderAndInvoiceSummary;
+import com.zhongji.simpleshelf.common.enums.TimeDescEnum;
+import com.zhongji.simpleshelf.core.service.impl.BiStatisticsSummaryServiceImpl;
 import com.zhongji.simpleshelf.api.client.http.HttpApiClient;
 import com.zhongji.simpleshelf.api.client.mq.kafka.KafkaProducerClient;
 import com.zhongji.simpleshelf.api.client.mq.rabbitmq.KgBootRabbitmqClient;
 import com.zhongji.simpleshelf.api.client.redis.KgBootRedisClient;
-import com.zhongji.simpleshelf.dao.domain.erpsid.CwflNew;
-import com.zhongji.simpleshelf.dao.mapper.erpsid.CwflNewMapper;
+import com.zhongji.simpleshelf.common.enums.TimeEnum;
+import com.zhongji.simpleshelf.dao.domain.StatisticsSummary;
+import com.zhongji.simpleshelf.dao.service.impl.CwflNewServiceImpl;
+import com.zhongji.simpleshelf.util.DateUtils;
 import com.zhongji.simpleshelf.web.response.BaseWebResponse;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -18,6 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -26,7 +35,10 @@ public class TestController {
 
 
     @Autowired
-    private CwflNewMapper cwflNewMapper;
+    private CwflNewServiceImpl cwflNewService;
+
+    @Autowired
+    private BiStatisticsSummaryServiceImpl biStatisticsSummaryService;
 
     @Autowired
     private HttpApiClient httpApiClient;
@@ -91,7 +103,18 @@ public class TestController {
 //        request.setUrlVariables(data);
 //        request.setAnalysisRespCode("common");
 //        HttpBaseResponse<String> httpResponse = httpApiClient.getHttpResponse(request);
-        List<CwflNew> cwflNews = cwflNewMapper.listSomeB("");
+        LocalDate startLocalDate = DateUtils.getIntervalTime(LocalDate.now(), TimeEnum.MONTH, -1);
+        LocalDate endLocalDate = DateUtils.getIntervalTime(startLocalDate, TimeEnum.MONTH, 1);
+
+
+        Date startDate = Date.from(startLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date endDate = Date.from(endLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        List<String> list = new ArrayList<>();
+        list.add(TimeEnum.MONTH.getCode());
+        List<BDOrderAndInvoiceSummary> bdOrderAndInvoiceSummaries = biStatisticsSummaryService.buildBDOrderAndInvoiceSummary(TimeDescEnum.PRE.name(), list);
+
+        List<StatisticsSummary> statisticsSummaries = cwflNewService.listErpSidSummary(startDate, endDate);
 
         return BaseWebResponse.<String>builder()
                 .success(true)
