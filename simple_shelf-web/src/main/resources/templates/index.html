@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>设置表格背景的颜色</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <!--    <script src="jquery-3.5.1.slim.js"></script>-->
+    <!--    <script src="/templates/js/bootstrap.js"></script>-->
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!--    <script src="js/bootstrap.js"></script>-->
+</head>
+<body class="container">
+<h2 align="center" id="title"></h2>
+<table class="table table-bordered">
+    <tbody>
+    <tr class="table-primary">
+        <td rowspan="2">模块</td>
+        <td>品牌</td>
+        <td>产品</td>
+        <td>品牌</td>
+        <td>产品</td>
+    </tr>
+<!--    <tr class="table-secondary">-->
+<!--        <td colspan="2">2. `table-secondary`: 用于突出显示表格中的次要数据，通常使用主题中的次要颜色。</td>-->
+<!--    </tr>-->
+<!--    <tr class="table-success">-->
+<!--        <td>3. `table-success`: 用于突出显示表格中的成功或正面信息，通常使用绿色。</td>-->
+<!--    </tr>-->
+<!--    <tr class="table-danger">-->
+<!--        <td>4. `table-danger`: 用于突出显示表格中的危险或错误信息，通常使用红色。</td>-->
+<!--    </tr>-->
+<!--    <tr class="table-warning">-->
+<!--        <td>5. `table-warning`: 用于突出显示表格中的警告或注意信息，通常使用黄色。</td>-->
+<!--    </tr>-->
+<!--    <tr class="table-info">-->
+<!--        <td>6. `table-info`: 用于突出显示表格中的一般信息，通常使用蓝色或淡蓝色。</td>-->
+<!--    </tr>-->
+<!--    <tr class="table-light">-->
+<!--        <td>7. `table-light`: 用于创建具有浅色背景的表格。</td>-->
+<!--    </tr>-->
+<!--    <tr class="table-dark">-->
+<!--        <td>8. `table-dark`: 用于创建具有深色背景的表格。</td>-->
+<!--    </tr>-->
+    </tbody>
+</table>
+
+<h2 align="center">以下为设置表格的单元格的背景色</h2>
+<table class="table  table-bordered">
+    <tbody>
+    <tr id="main_title">
+        <td rowspan="2" class="table-primary center-text">模块</td>
+        <td rowspan="2" class="table-primary center-text">品牌</td>
+        <td rowspan="2" class="table-primary center-text" id="product-title">产品</td>
+        <td rowspan="2" class="table-primary center-text">备注</td>
+    </tr>
+    <tr id="tt">
+
+    </tr>
+<!--    <tr id="main_table">-->
+<!--        <td class="table-primary" style="text-align: center;">模块</td>-->
+<!--        <td class="table-secondary">品牌</td>-->
+<!--        <td class="table-success">产品</td>-->
+<!--        <td class="table-danger">4-`table-danger`</td>-->
+<!--        <td class="table-warning">5-`table-warning`</td>-->
+<!--        <td class="table-info">6-`table-info`</td>-->
+<!--        <td class="table-light">7-`table-light`</td>-->
+<!--        <td class="table-dark">8-`table-dark`</td>-->
+<!--    </tr>-->
+    </tbody>
+</table>
+
+</body>
+<script>
+    $(document).ready(function () {
+        $('#title').text('强冠BG订单及开票${}报(${}})');
+
+        var requestData = {
+            topic: "value1",
+            message: "value2"
+        };
+        // 发送 Ajax 请求
+        $.ajax({
+            url: "/test/abc",
+            method: "GET",
+            data: requestData, // 将参数放在这里
+            dataType: "json",
+            success: function (data) {
+                console.log(JSON.stringify(data))
+                // 处理成功响应
+                // $("#result").html("Data from Backend: " + JSON.stringify(data));
+            },
+            error: function (xhr, status, error) {
+                // 处理错误响应
+                console.error("Error fetching data from backend: " + error);
+            }
+        });
+
+        //
+        for (var i = 0; i < 2; i++) {
+            // console.log("Index: " + i + ", Value: " + fruits[i]);
+            $('#product-title').after('<td class="table-primary center-text" colspan="2">'+i+'产品</td>')
+            $('#tt').append('<td class="table-primary center-text">开票数</td>')
+            $('#tt').append('<td class="table-success center-text">订单数</td>')
+            // 在这里可以执行更多的操作，根据需要进行处理
+        }
+    });
+</script>
+
+
+<style>
+    .center-text {
+        text-align: center;
+        vertical-align: middle !important;
+    }
+</style>
+
+
+</html>
+

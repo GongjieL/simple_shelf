@@ -9,12 +9,12 @@ public class OrderAndInvoiceBo {
     /**
      * 订单数
      */
-    private Integer orderNum;
+    private Integer orderNum=0;
 
     /**
      * 开票数
      */
-    private Integer invoiceNum;
+    private Integer invoiceNum=0;
 
 
     public String getProductType() {

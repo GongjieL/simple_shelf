@@ -11,7 +11,7 @@ public class OrderAndInvoiceSummary {
 
 
     /**
-     * 统计口径list(11月，年度)
+     * 类型list
      */
     private List<OrderAndInvoiceBo> orderAndInvoices;
 
@@ -19,12 +19,12 @@ public class OrderAndInvoiceSummary {
     /**
      * 订单总数
      */
-    private Integer orderNum;
+    private Integer orderNum=0;
 
     /**
      * 开票总数
      */
-    private Integer invoiceNum;
+    private Integer invoiceNum=0;
 
 
     public String getSummaryCaliber() {

@@ -23,12 +23,18 @@ public enum TimeDescEnum {
 
     public static TimeDescEnum getByCode(String subCode) {
         for (TimeDescEnum value : values()) {
-            if (value.getClass().equals(subCode)) {
+            if (value.getCode().equals(subCode)) {
                 return value;
             }
         }
         return null;
     }
 
+    public String getCode() {
+        return code;
+    }
 
+    public String getName() {
+        return name;
+    }
 }

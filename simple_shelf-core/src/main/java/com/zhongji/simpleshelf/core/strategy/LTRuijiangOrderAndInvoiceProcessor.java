@@ -14,14 +14,14 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class TonghuaOrderAndInvoiceProcessor extends AbstractOrderAndInvoiceProcessor {
+public class LTRuijiangOrderAndInvoiceProcessor extends AbstractOrderAndInvoiceProcessor {
 
     @Autowired
     private CwflNewServiceImpl cwflNewService;
 
     @Override
     public String handleType() {
-        return BrandEnum.LT_TONG_HUA.getCode();
+        return BrandEnum.LT_RUI_JIANG.getCode();
     }
 
 

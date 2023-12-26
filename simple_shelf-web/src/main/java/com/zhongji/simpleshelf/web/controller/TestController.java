@@ -62,7 +62,7 @@ public class TestController {
 
 
     @GetMapping(value = "/abc")
-    public BaseWebResponse<String> test(@RequestParam String topic,
+    public BaseWebResponse<List<BDOrderAndInvoiceSummary>> test(@RequestParam String topic,
                                         @RequestParam String message) {
 //        kgBootRabbitmqClient.syncSend(topic,message);
 //        kgBootRabbitmqClient.send(topic, "hello");
@@ -112,13 +112,14 @@ public class TestController {
 
         List<String> list = new ArrayList<>();
         list.add(TimeEnum.MONTH.getCode());
+        list.add(TimeEnum.WEEK.getCode());
         List<BDOrderAndInvoiceSummary> bdOrderAndInvoiceSummaries = biStatisticsSummaryService.buildBDOrderAndInvoiceSummary(TimeDescEnum.PRE.name(), list);
 
-        List<StatisticsSummary> statisticsSummaries = cwflNewService.listErpSidSummary(startDate, endDate);
+//        List<StatisticsSummary> statisticsSummaries = cwflNewService.listErpSidSummary(startDate, endDate);
 
-        return BaseWebResponse.<String>builder()
+        return BaseWebResponse.<List<BDOrderAndInvoiceSummary>>builder()
                 .success(true)
-                .data("hello world")
+                .data(bdOrderAndInvoiceSummaries)
                 .code(200)
                 .build();
     }
