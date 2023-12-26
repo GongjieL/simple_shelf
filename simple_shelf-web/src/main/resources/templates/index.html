@@ -14,62 +14,60 @@
     <!--    <script src="js/bootstrap.js"></script>-->
 </head>
 <body class="container">
-<h2 align="center" id="title"></h2>
+<h2 align="center"></h2>
 <table class="table table-bordered">
     <tbody>
-    <tr class="table-primary">
-        <td rowspan="2">模块</td>
-        <td>品牌</td>
-        <td>产品</td>
-        <td>品牌</td>
-        <td>产品</td>
-    </tr>
-<!--    <tr class="table-secondary">-->
-<!--        <td colspan="2">2. `table-secondary`: 用于突出显示表格中的次要数据，通常使用主题中的次要颜色。</td>-->
+<!--    <tr class="table-primary">-->
+<!--        <td rowspan="2">模块</td>-->
+<!--        <td>品牌</td>-->
+<!--        <td>产品</td>-->
+<!--        <td>品牌</td>-->
+<!--        <td>产品</td>-->
 <!--    </tr>-->
-<!--    <tr class="table-success">-->
-<!--        <td>3. `table-success`: 用于突出显示表格中的成功或正面信息，通常使用绿色。</td>-->
-<!--    </tr>-->
-<!--    <tr class="table-danger">-->
-<!--        <td>4. `table-danger`: 用于突出显示表格中的危险或错误信息，通常使用红色。</td>-->
-<!--    </tr>-->
-<!--    <tr class="table-warning">-->
-<!--        <td>5. `table-warning`: 用于突出显示表格中的警告或注意信息，通常使用黄色。</td>-->
-<!--    </tr>-->
-<!--    <tr class="table-info">-->
-<!--        <td>6. `table-info`: 用于突出显示表格中的一般信息，通常使用蓝色或淡蓝色。</td>-->
-<!--    </tr>-->
-<!--    <tr class="table-light">-->
-<!--        <td>7. `table-light`: 用于创建具有浅色背景的表格。</td>-->
-<!--    </tr>-->
-<!--    <tr class="table-dark">-->
-<!--        <td>8. `table-dark`: 用于创建具有深色背景的表格。</td>-->
-<!--    </tr>-->
+    <!--    <tr class="table-secondary">-->
+    <!--        <td colspan="2">2. `table-secondary`: 用于突出显示表格中的次要数据，通常使用主题中的次要颜色。</td>-->
+    <!--    </tr>-->
+    <!--    <tr class="table-success">-->
+    <!--        <td>3. `table-success`: 用于突出显示表格中的成功或正面信息，通常使用绿色。</td>-->
+    <!--    </tr>-->
+    <!--    <tr class="table-danger">-->
+    <!--        <td>4. `table-danger`: 用于突出显示表格中的危险或错误信息，通常使用红色。</td>-->
+    <!--    </tr>-->
+    <!--    <tr class="table-warning">-->
+    <!--        <td>5. `table-warning`: 用于突出显示表格中的警告或注意信息，通常使用黄色。</td>-->
+    <!--    </tr>-->
+    <!--    <tr class="table-info">-->
+    <!--        <td>6. `table-info`: 用于突出显示表格中的一般信息，通常使用蓝色或淡蓝色。</td>-->
+    <!--    </tr>-->
+    <!--    <tr class="table-light">-->
+    <!--        <td>7. `table-light`: 用于创建具有浅色背景的表格。</td>-->
+    <!--    </tr>-->
+    <!--    <tr class="table-dark">-->
+    <!--        <td>8. `table-dark`: 用于创建具有深色背景的表格。</td>-->
+    <!--    </tr>-->
     </tbody>
 </table>
 
-<h2 align="center">以下为设置表格的单元格的背景色</h2>
+<h2 align="center" id="title"></h2>
 <table class="table  table-bordered">
-    <tbody>
+    <tbody id="biBody">
     <tr id="main_title">
         <td rowspan="2" class="table-primary center-text">模块</td>
         <td rowspan="2" class="table-primary center-text">品牌</td>
         <td rowspan="2" class="table-primary center-text" id="product-title">产品</td>
-        <td rowspan="2" class="table-primary center-text">备注</td>
+        <td rowspan="2" class="table-primary center-text" id="remark">备注</td>
     </tr>
-    <tr id="tt">
-
-    </tr>
-<!--    <tr id="main_table">-->
-<!--        <td class="table-primary" style="text-align: center;">模块</td>-->
-<!--        <td class="table-secondary">品牌</td>-->
-<!--        <td class="table-success">产品</td>-->
-<!--        <td class="table-danger">4-`table-danger`</td>-->
-<!--        <td class="table-warning">5-`table-warning`</td>-->
-<!--        <td class="table-info">6-`table-info`</td>-->
-<!--        <td class="table-light">7-`table-light`</td>-->
-<!--        <td class="table-dark">8-`table-dark`</td>-->
-<!--    </tr>-->
+    <tr id="tt"></tr>
+    <!--        <tr id="main_table">-->
+    <!--            <td class="table-primary" style="text-align: center;">模块</td>-->
+    <!--            <td class="table-secondary">品牌</td>-->
+    <!--            <td class="table-success">产品</td>-->
+    <!--            <td class="table-danger">4-`table-danger`</td>-->
+    <!--            <td class="table-warning">5-`table-warning`</td>-->
+    <!--            <td class="table-info">6-`table-info`</td>-->
+    <!--            <td class="table-light">7-`table-light`</td>-->
+    <!--            <td class="table-dark">8-`table-dark`</td>-->
+    <!--        </tr>-->
     </tbody>
 </table>
 
@@ -89,7 +87,88 @@
             data: requestData, // 将参数放在这里
             dataType: "json",
             success: function (data) {
-                console.log(JSON.stringify(data))
+                var summaryData = JSON.stringify(data);
+                if (data.code != 200) {
+                    console.log("Error fetching data from backend: " + error);
+                }
+                var dataList = data.data;
+                //标题处理，返回统计口径排序的列表
+                var summaryCaliberSort = handleTitle(dataList);
+                $.each(dataList, function (dataListIndex, deptData) {
+                    var deptUsedCol = 0;
+                    var firstTrId = null;
+                    //品牌
+                    var brandData = deptData.brandOrderAndInvoiceSummaries;
+                    $.each(brandData, function (brandDataIndex, brandSingle) {
+                        //统计口径
+                        var summaryCalibers = brandSingle.orderAndInvoices;
+                        var subTypeSize = summaryCalibers[0].orderAndInvoices.length;
+                        //创建tr
+                        var subTypeTrId = deptData.businessDepartmentType + '_' + brandSingle.brand + '_';
+                        for (var i = 0; i < subTypeSize; i++) {
+                            var subTypeCode = summaryCalibers[0].orderAndInvoices[i].productType;
+                            $('#biBody').append('<tr class="center-text" id="' + subTypeTrId + subTypeCode + '"></tr>')
+                            if (firstTrId == null) {
+                                firstTrId = subTypeTrId + subTypeCode;
+                                $('#' + firstTrId).append('<td class="table-light center-text" id="' + deptData.businessDepartmentType + '">' + deptData.businessDepartmentName + '</td>')
+                            }
+                            deptUsedCol++;
+                            //创建品牌
+                            if (i == 0) {
+                                $('#' + subTypeTrId + subTypeCode).append('<td class="table-light center-text" rowspan=' + (subTypeSize + 1) + '">' + brandSingle.brandName + '</td>')
+                            }
+                        }
+                        //总计
+                        $('#biBody').append('<tr class="center-text" id="' + subTypeTrId + 'summary"></tr>')
+                        $('#' + subTypeTrId + 'summary').append('<td class="table-secondary center-text">小计</td>')
+                        deptUsedCol++;
+                        //统计口径
+                        var summaryCalibersMap = buildCaliberData(summaryCalibers);
+                        //根据标题统计口径for
+                        $.each(summaryCaliberSort, function (summaryCalibersIndex, summaryCaliberKey) {
+                            var value = summaryCalibersMap.get(summaryCaliberKey);
+                            var subTypeData = value.orderAndInvoices;
+                            var subTypeDataMap = buildSubTypeData(subTypeData);
+                            $.each(subTypeData, function (subTypeDataIndex, value) {
+                                //默认返回类型都有数据
+                                if (summaryCalibersIndex == 0) {
+                                    //具体产品
+                                    $('#' + subTypeTrId + value.productType).append('<td class="table-light center-text">' + value.productType + '</td>')
+                                }
+                                //创建td
+                                //对应到subType
+                                $('#' + subTypeTrId + value.productType).append('<td class="table-light center-text">' + subTypeDataMap.get(value.productType).invoiceNum + '</td>')
+                                $('#' + subTypeTrId + value.productType).append('<td class="table-success center-text">' + subTypeDataMap.get(value.productType).orderNum + '</td>')
+                                //备注td补全
+                                if (summaryCalibersIndex == (summaryCaliberSort.length - 1)) {
+                                    $('#' + subTypeTrId + value.productType).append('<td class="table-light center-text"></td>');
+                                }
+                            });
+                            //品牌总计，获取统计口径
+                            $('#' + subTypeTrId + 'summary').append('<td class="table-secondary center-text">' + value.invoiceNum + '</td>')
+                            $('#' + subTypeTrId + 'summary').append('<td class="table-secondary center-text">' + value.orderNum + '</td>')
+                            //备注td补全
+                            if (summaryCalibersIndex == (summaryCaliberSort.length - 1)) {
+                                $('#' + subTypeTrId + 'summary').append('<td class="table-light center-text"></td>');
+                            }
+                        });
+                    });
+                    // $('#' + subTypeTrId + 'summary').append('<td class="table-light center-text"></td>');
+                    $('#' + deptData.businessDepartmentType).attr("rowspan", deptUsedCol + 1);
+                    $('#biBody').append('<tr class="center-text" id="' + deptData.businessDepartmentType + '_summary"></tr>')
+                    $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-primary center-text" colspan="2">' + deptData.businessDepartmentName + '总计</td>')
+                    //统计口径
+                    //按照统计口径分类
+                    var allSummaryCalibers = buildCaliberData(deptData.summaryCalibers);
+                    $.each(summaryCaliberSort, function (summaryCalibersIndex, summaryCaliberKey) {
+                        var value = allSummaryCalibers.get(summaryCaliberKey);
+                        $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-primary center-text">' + value.invoiceNum + '</td>')
+                        $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-primary center-text">' + value.orderNum + '</td>')
+                    });
+                    $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-light center-text"></td>')
+                    //添加汇总
+                    // $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-primary center-text">' + subTypeDataMap.get(value.productType).orderNum + '</td>')
+                });
                 // 处理成功响应
                 // $("#result").html("Data from Backend: " + JSON.stringify(data));
             },
@@ -98,16 +177,55 @@
                 console.error("Error fetching data from backend: " + error);
             }
         });
-
-        //
-        for (var i = 0; i < 2; i++) {
-            // console.log("Index: " + i + ", Value: " + fruits[i]);
-            $('#product-title').after('<td class="table-primary center-text" colspan="2">'+i+'产品</td>')
-            $('#tt').append('<td class="table-primary center-text">开票数</td>')
-            $('#tt').append('<td class="table-success center-text">订单数</td>')
-            // 在这里可以执行更多的操作，根据需要进行处理
-        }
     });
+
+    /**
+     * 处理标题
+     * @param dataList
+     * @returns {*[]}
+     */
+    function handleTitle(dataList) {
+        var singleOrderAndInvoices = dataList[0].brandOrderAndInvoiceSummaries[0].orderAndInvoices;
+        //记录统计口径的排序，防止数据错误
+        var summaryCaliberSort = [];
+        $.each(singleOrderAndInvoices, function (index, value) {
+            summaryCaliberSort.push(value.summaryCaliber);
+            $('#remark').before('<td class="table-primary center-text" colspan="2">' + value.summaryCaliber + '</td>')
+            $('#tt').append('<td class="table-primary center-text">开票数</td>')
+            $('#tt').append('<td class="table-info center-text">订单数</td>')
+        });
+        return summaryCaliberSort;
+    }
+
+
+    /**
+     *
+     * @param orderAndInvoices 子类型统计分类
+     */
+    function buildSubTypeData(orderAndInvoices) {
+        var myMap = new Map();
+        // 添加键值对
+        $.each(orderAndInvoices, function (index, value) {
+            myMap.set(value.productType, value);
+        });
+        return myMap;
+    }
+
+
+    /**
+     *
+     * @param orderAndInvoices 统计口径分类
+     */
+    function buildCaliberData(summaryCalibers) {
+        var myMap = new Map();
+        // 添加键值对
+        $.each(summaryCalibers, function (index, value) {
+            myMap.set(value.summaryCaliber, value);
+        });
+        return myMap;
+    }
+
+
 </script>
 
 

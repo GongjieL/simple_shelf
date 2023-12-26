@@ -64,6 +64,8 @@ public class BiStatisticsSummaryServiceImpl implements BiStatisticsSummaryServic
                 brandOrderAndInvoiceSummaries.add(brandOrderAndInvoiceSummary);
             }
         }
+        //整理
+        arrangeBrandOrderAndInvoiceSummaries(brandOrderAndInvoiceSummaries);
         //部门统计
         Map<String, List<BrandOrderAndInvoiceSummary>> bdOrderAndInvoiceSummaryData = new HashMap<>();
         Map<String, List<OrderAndInvoiceSummary>> deptOrderAndInvoiceSummaryData = new HashMap<>();
@@ -110,6 +112,47 @@ public class BiStatisticsSummaryServiceImpl implements BiStatisticsSummaryServic
         //时间查询
         return bdOrderAndInvoiceSummaries;
     }
+
+
+    private void arrangeBrandOrderAndInvoiceSummaries(List<BrandOrderAndInvoiceSummary> brandOrderAndInvoiceSummaries) {
+        //并集补充
+        for (BrandOrderAndInvoiceSummary brandOrderAndInvoiceSummary : brandOrderAndInvoiceSummaries) {
+            //某品牌下的口径统计集合(月、周、年等)
+            List<OrderAndInvoiceSummary> orderAndInvoices = brandOrderAndInvoiceSummary.getOrderAndInvoices();
+            List<List<String>> allSubTypesList = new ArrayList<>();
+            for (OrderAndInvoiceSummary orderAndInvoice : orderAndInvoices) {
+                //所有子类型
+                List<OrderAndInvoiceBo> subTypeOrderAndInvoices = orderAndInvoice.getOrderAndInvoices();
+                allSubTypesList.add(subTypeOrderAndInvoices.stream().map(OrderAndInvoiceBo::getProductType)
+                        .collect(Collectors.toList()));
+
+            }
+            List<String> allSubTypes = allSubTypesList.stream()
+                    .flatMap(List::stream)
+                    .distinct()
+                    .collect(Collectors.toList());
+            //没有的补充
+            for (OrderAndInvoiceSummary orderAndInvoice : orderAndInvoices) {
+                //所有子类型
+                List<OrderAndInvoiceBo> subTypeOrderAndInvoices = orderAndInvoice.getOrderAndInvoices();
+                List<String> selfSubTypes = subTypeOrderAndInvoices.stream().map(OrderAndInvoiceBo::getProductType)
+                        .collect(Collectors.toList());
+                //不在当前的
+                List<String> missingInList = allSubTypes.stream()
+                        .filter(element -> !selfSubTypes.contains(element))
+                        .collect(Collectors.toList());
+                if (CollectionUtils.isEmpty(missingInList)) {
+                    continue;
+                }
+                for (String type : missingInList) {
+                    OrderAndInvoiceBo orderAndInvoiceBo = new OrderAndInvoiceBo();
+                    orderAndInvoiceBo.setProductType(type);
+                    orderAndInvoice.getOrderAndInvoices().add(orderAndInvoiceBo);
+                }
+            }
+        }
+    }
+
 
 
     private OrderAndInvoiceSummary buildOrderAndInvoiceSummary(String brand, Date startDate, Date endDate) {
