@@ -1,5 +1,7 @@
 package com.zhongji.simpleshelf.common.bo.bi.orderandinvoice;
 
+import com.zhongji.simpleshelf.common.bo.bi.SummaryCaliber;
+
 import java.util.List;
 
 public class OrderAndInvoiceSummary {
@@ -8,6 +10,12 @@ public class OrderAndInvoiceSummary {
      * 统计口径
      */
     private String summaryCaliber;
+
+
+    /**
+     * 具体统计口径
+     */
+    private SummaryCaliber summaryCaliberDetail;
 
 
     /**
@@ -57,5 +65,13 @@ public class OrderAndInvoiceSummary {
 
     public void setInvoiceNum(Integer invoiceNum) {
         this.invoiceNum = invoiceNum;
+    }
+
+    public SummaryCaliber getSummaryCaliberDetail() {
+        return summaryCaliberDetail;
+    }
+
+    public void setSummaryCaliberDetail(SummaryCaliber summaryCaliberDetail) {
+        this.summaryCaliberDetail = summaryCaliberDetail;
     }
 }

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export Table with Styles</title>
+
+    <!-- 引入 Bootstrap CSS -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.6.4/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+
+    <!-- 引入 xlsx-style -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+</head>
+<body>
+
+<!-- 表格 -->
+<table class="table" id="myTable">
+    <thead>
+    <tr>
+        <th>Header 1</th>
+        <th>Header 2</th>
+        <th>Header 3</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr style="background-color: #ffcccb;">
+        <td>Data 1</td>
+        <td>Data 2</td>
+        <td>Data 3</td>
+    </tr>
+    <tr style="background-color: #c2f0c2;">
+        <td>Data 4</td>
+        <td>Data 5</td>
+        <td>Data 6</td>
+    </tr>
+    <!-- 更多行... -->
+    </tbody>
+</table>
+
+<!-- 导出按钮 -->
+<button onclick="exportToExcel()">Export to Excel</button>
+
+<script>
+    function exportToExcel() {
+        // 获取表格
+        var table = document.getElementById("myTable");
+
+        // 创建一个 Workbook 和一个 Worksheet
+        var wb = XLSX.utils.book_new();
+        var ws = XLSX.utils.table_to_sheet(table);
+
+        // 将 Worksheet 添加到 Workbook
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+        // 生成 Excel Blob 对象
+        let wbout = XLSX.write(wb, {bookType: "xlsx", type: 'binary', bookSST: false});
+
+        // 使用 FileSaver.js 保存文件
+        saveAs(new Blob([s2ab(wbout)], {type: "application/octet-stream"}), "table_export.xlsx");
+
+    }
+
+
+    function s2ab(s) {
+        let buf = new ArrayBuffer(s.length);
+        let view = new Uint8Array(buf);
+        for (let i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+        return buf;
+    }
+</script>
+
+</body>
+</html>

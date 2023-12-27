@@ -78,6 +78,10 @@ public class ShiroConfig {
         filter.put("/test/abc", "anon");
 //        filter.put("/frontJs/index", "anon");
         filter.put("/index", "anon");
+        filter.put("/index2", "anon");
+        filter.put("/index3", "anon");
+        filter.put("/bi/buildBDOrderAndInvoiceSummary", "anon");
+        filter.put("/index/buildBDOrderAndInvoiceSummary", "anon");
         filter.put("/**", "authc");
         bean.setFilterChainDefinitionMap(filter);
 

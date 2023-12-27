@@ -38,7 +38,7 @@ public class LTRuijiangOrderAndInvoiceProcessor extends AbstractOrderAndInvoiceP
         List<StatisticsSummary> statisticsSummaries = cwflNewService.listErpSidSummary(startDate, endDate);
         //计算总数
         if (CollectionUtils.isEmpty(statisticsSummaries)) {
-            return null;
+            statisticsSummaries = new ArrayList<>();
         }
         Integer invoiceNum = 0;
         OrderAndInvoiceSummary orderAndInvoiceSummary = new OrderAndInvoiceSummary();

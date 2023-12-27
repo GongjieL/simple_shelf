@@ -6,24 +6,73 @@
     <meta name="viewport" content="width=device-width,initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+
+
     <!--    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">-->
     <!--    <script src="jquery-3.5.1.slim.js"></script>-->
     <!--    <script src="/templates/js/bootstrap.js"></script>-->
-    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+    <!-- 引入 html2canvas -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+    <!-- 引入 FileSaver.js -->
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
     <!--    <script src="js/bootstrap.js"></script>-->
 </head>
 <body class="container">
+
+<form style="margin-top: 36px;">
+    <!-- 使用 form-row 类包装表单组件 -->
+    <div class="form-row">
+        <!-- 第一个表单组件，占据 6 栅格（占一半的宽度） -->
+        <div class="col-md-6 mb-3">
+            <label for="datepicker">参照时间</label>
+            <input type="text" class="form-control" id="datepicker" placeholder="参照时间" autocomplete="off" required>
+        </div>
+        <!-- 第二个表单组件，占据 6 栅格（占一半的宽度） -->
+
+        <div class="col-md-6 mb-3 selectpicker" multiple data-live-search="true">
+            <label for="summaryCaliber">统计口径</label>
+            <select class="form-control selectpicker" multiple data-live-search="true" id="summaryCaliber">
+                <option value="NOW_DAY">当天</option>
+                <option value="PRE_DAY">昨天</option>
+                <option value="NOW_WEEK">本周</option>
+                <option value="PRE_WEEK">上周</option>
+                <option value="NOW_MONTH">本月</option>
+                <option value="PRE_MONTH">上月</option>
+                <option value="NOW_QUARTER">当季度</option>
+                <option value="PRE_QUARTER">上季度</option>
+                <option value="NOW_YEAR">当年</option>
+                <option value="PRE_YEAR">去年</option>
+            </select>
+        </div>
+    </div>
+    <!-- 其他表单组件... -->
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-primary" id="select_summary" type="button">查询</button>
+    </div>
+</form>
+
+
 <h2 align="center"></h2>
-<table class="table table-bordered">
+<table class="table table-bordered d-none">
     <tbody>
-<!--    <tr class="table-primary">-->
-<!--        <td rowspan="2">模块</td>-->
-<!--        <td>品牌</td>-->
-<!--        <td>产品</td>-->
-<!--        <td>品牌</td>-->
-<!--        <td>产品</td>-->
-<!--    </tr>-->
+    <!--    <tr class="table-primary">-->
+    <!--        <td rowspan="2">模块</td>-->
+    <!--        <td>品牌</td>-->
+    <!--        <td>产品</td>-->
+    <!--        <td>品牌</td>-->
+    <!--        <td>产品</td>-->
+    <!--    </tr>-->
     <!--    <tr class="table-secondary">-->
     <!--        <td colspan="2">2. `table-secondary`: 用于突出显示表格中的次要数据，通常使用主题中的次要颜色。</td>-->
     <!--    </tr>-->
@@ -48,127 +97,85 @@
     </tbody>
 </table>
 
-<h2 align="center" id="title"></h2>
-<table class="table  table-bordered">
-    <tbody id="biBody">
-    <tr id="main_title">
-        <td rowspan="2" class="table-primary center-text">模块</td>
-        <td rowspan="2" class="table-primary center-text">品牌</td>
-        <td rowspan="2" class="table-primary center-text" id="product-title">产品</td>
-        <td rowspan="2" class="table-primary center-text" id="remark">备注</td>
-    </tr>
-    <tr id="tt"></tr>
-    <!--        <tr id="main_table">-->
-    <!--            <td class="table-primary" style="text-align: center;">模块</td>-->
-    <!--            <td class="table-secondary">品牌</td>-->
-    <!--            <td class="table-success">产品</td>-->
-    <!--            <td class="table-danger">4-`table-danger`</td>-->
-    <!--            <td class="table-warning">5-`table-warning`</td>-->
-    <!--            <td class="table-info">6-`table-info`</td>-->
-    <!--            <td class="table-light">7-`table-light`</td>-->
-    <!--            <td class="table-dark">8-`table-dark`</td>-->
-    <!--        </tr>-->
-    </tbody>
+
+<h2 align="center">
+    <div class="col-md-6 mb-3 mx-auto" id="titleParent">
+    </div>
+</h2>
+<table class="table table-bordered" id="orderAndInvoiceBi">
+    <!--    <tbody id="biBody">-->
+    <!--    <tr id="main_title">-->
+    <!--        <td rowspan="2" class="table-primary center-text">模块</td>-->
+    <!--        <td rowspan="2" class="table-primary center-text">品牌</td>-->
+    <!--        <td rowspan="2" class="table-primary center-text" id="product-title">产品</td>-->
+    <!--        <td rowspan="2" class="table-primary center-text" id="remark">备注</td>-->
+    <!--    </tr>-->
+    <!--    <tr id="tt"></tr>-->
+    <!--    <tr id="main_table">-->
+    <!--        <td class="table-primary" style="text-align: center;">模块</td>-->
+    <!--        <td class="table-secondary">品牌</td>-->
+    <!--        <td class="table-success">产品</td>-->
+    <!--        <td class="table-danger">4-`table-danger`</td>-->
+    <!--        <td class="table-warning">5-`table-warning`</td>-->
+    <!--        <td class="table-info">6-`table-info`</td>-->
+    <!--        <td class="table-light">7-`table-light`</td>-->
+    <!--        <td class="table-dark">8-`table-dark`</td>-->
+    <!--    </tr>-->
+    <!--    </tbody>-->
 </table>
+
+<button onclick="exportToImage()" class="invisible" id="exportButton">导出报表</button>
+
 
 </body>
 <script>
-    $(document).ready(function () {
-        $('#title').text('强冠BG订单及开票${}报(${}})');
+    /**
+     * 点击查询按钮
+     */
+    $('#select_summary').click(function () {
+        //构建date
+        var referToDate = new Date($('#datepicker').val());
+        //构建json
+        var summaryCaliberVal = $('#summaryCaliber').val();
+        //初始化table
+        refreshTable();
 
-        var requestData = {
-            topic: "value1",
-            message: "value2"
-        };
-        // 发送 Ajax 请求
+        //初始化按钮
+        $('#exportButton').attr("class","invisible");
+        var requestSummaryCalibers = [];
+        $.each(summaryCaliberVal, function (brandDataIndex, originSummaryCaliber) {
+            //剪切
+            var timeDesc = originSummaryCaliber.split('_')[0];
+            var timeUnit = originSummaryCaliber.split('_')[1];
+            var requestSummaryCaliber = {
+                "timeDesc": timeDesc,
+                "timeUnit": timeUnit
+            };
+            requestSummaryCalibers.push(requestSummaryCaliber);
+        });
+        //初始化标题
+        refreshTitle(4+2*requestSummaryCalibers.length);
+        var postData = {
+            "referToDate": referToDate,
+            "summaryCalibers": requestSummaryCalibers
+        }
+        // $.post({
+        //请求
         $.ajax({
-            url: "/test/abc",
-            method: "GET",
-            data: requestData, // 将参数放在这里
+            type: 'POST',
+            url: "/bi/buildBDOrderAndInvoiceSummary",
             dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(postData), // 将参数放在这里
             success: function (data) {
                 var summaryData = JSON.stringify(data);
                 if (data.code != 200) {
                     console.log("Error fetching data from backend: " + error);
                 }
-                var dataList = data.data;
-                //标题处理，返回统计口径排序的列表
-                var summaryCaliberSort = handleTitle(dataList);
-                $.each(dataList, function (dataListIndex, deptData) {
-                    var deptUsedCol = 0;
-                    var firstTrId = null;
-                    //品牌
-                    var brandData = deptData.brandOrderAndInvoiceSummaries;
-                    $.each(brandData, function (brandDataIndex, brandSingle) {
-                        //统计口径
-                        var summaryCalibers = brandSingle.orderAndInvoices;
-                        var subTypeSize = summaryCalibers[0].orderAndInvoices.length;
-                        //创建tr
-                        var subTypeTrId = deptData.businessDepartmentType + '_' + brandSingle.brand + '_';
-                        for (var i = 0; i < subTypeSize; i++) {
-                            var subTypeCode = summaryCalibers[0].orderAndInvoices[i].productType;
-                            $('#biBody').append('<tr class="center-text" id="' + subTypeTrId + subTypeCode + '"></tr>')
-                            if (firstTrId == null) {
-                                firstTrId = subTypeTrId + subTypeCode;
-                                $('#' + firstTrId).append('<td class="table-light center-text" id="' + deptData.businessDepartmentType + '">' + deptData.businessDepartmentName + '</td>')
-                            }
-                            deptUsedCol++;
-                            //创建品牌
-                            if (i == 0) {
-                                $('#' + subTypeTrId + subTypeCode).append('<td class="table-light center-text" rowspan=' + (subTypeSize + 1) + '">' + brandSingle.brandName + '</td>')
-                            }
-                        }
-                        //总计
-                        $('#biBody').append('<tr class="center-text" id="' + subTypeTrId + 'summary"></tr>')
-                        $('#' + subTypeTrId + 'summary').append('<td class="table-secondary center-text">小计</td>')
-                        deptUsedCol++;
-                        //统计口径
-                        var summaryCalibersMap = buildCaliberData(summaryCalibers);
-                        //根据标题统计口径for
-                        $.each(summaryCaliberSort, function (summaryCalibersIndex, summaryCaliberKey) {
-                            var value = summaryCalibersMap.get(summaryCaliberKey);
-                            var subTypeData = value.orderAndInvoices;
-                            var subTypeDataMap = buildSubTypeData(subTypeData);
-                            $.each(subTypeData, function (subTypeDataIndex, value) {
-                                //默认返回类型都有数据
-                                if (summaryCalibersIndex == 0) {
-                                    //具体产品
-                                    $('#' + subTypeTrId + value.productType).append('<td class="table-light center-text">' + value.productType + '</td>')
-                                }
-                                //创建td
-                                //对应到subType
-                                $('#' + subTypeTrId + value.productType).append('<td class="table-light center-text">' + subTypeDataMap.get(value.productType).invoiceNum + '</td>')
-                                $('#' + subTypeTrId + value.productType).append('<td class="table-success center-text">' + subTypeDataMap.get(value.productType).orderNum + '</td>')
-                                //备注td补全
-                                if (summaryCalibersIndex == (summaryCaliberSort.length - 1)) {
-                                    $('#' + subTypeTrId + value.productType).append('<td class="table-light center-text"></td>');
-                                }
-                            });
-                            //品牌总计，获取统计口径
-                            $('#' + subTypeTrId + 'summary').append('<td class="table-secondary center-text">' + value.invoiceNum + '</td>')
-                            $('#' + subTypeTrId + 'summary').append('<td class="table-secondary center-text">' + value.orderNum + '</td>')
-                            //备注td补全
-                            if (summaryCalibersIndex == (summaryCaliberSort.length - 1)) {
-                                $('#' + subTypeTrId + 'summary').append('<td class="table-light center-text"></td>');
-                            }
-                        });
-                    });
-                    // $('#' + subTypeTrId + 'summary').append('<td class="table-light center-text"></td>');
-                    $('#' + deptData.businessDepartmentType).attr("rowspan", deptUsedCol + 1);
-                    $('#biBody').append('<tr class="center-text" id="' + deptData.businessDepartmentType + '_summary"></tr>')
-                    $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-primary center-text" colspan="2">' + deptData.businessDepartmentName + '总计</td>')
-                    //统计口径
-                    //按照统计口径分类
-                    var allSummaryCalibers = buildCaliberData(deptData.summaryCalibers);
-                    $.each(summaryCaliberSort, function (summaryCalibersIndex, summaryCaliberKey) {
-                        var value = allSummaryCalibers.get(summaryCaliberKey);
-                        $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-primary center-text">' + value.invoiceNum + '</td>')
-                        $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-primary center-text">' + value.orderNum + '</td>')
-                    });
-                    $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-light center-text"></td>')
-                    //添加汇总
-                    // $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-primary center-text">' + subTypeDataMap.get(value.productType).orderNum + '</td>')
-                });
+                //构建表格
+                buildTable(data.data);
+                //显示导出按钮
+                $('#exportButton').attr("class","visible");
                 // 处理成功响应
                 // $("#result").html("Data from Backend: " + JSON.stringify(data));
             },
@@ -177,6 +184,198 @@
                 console.error("Error fetching data from backend: " + error);
             }
         });
+    });
+
+    function buildTable(dataList){
+        //标题处理，返回统计口径排序的列表
+        var summaryCaliberSort = handleTitle(dataList);
+        $.each(dataList, function (dataListIndex, deptData) {
+            var deptUsedCol = 0;
+            var firstTrId = null;
+            //品牌
+            var brandData = deptData.brandOrderAndInvoiceSummaries;
+            $.each(brandData, function (brandDataIndex, brandSingle) {
+                //统计口径
+                var summaryCalibers = brandSingle.orderAndInvoices;
+                var subTypeSize = summaryCalibers[0].orderAndInvoices.length;
+                //创建tr
+                var subTypeTrId = deptData.businessDepartmentType + '_' + brandSingle.brand + '_';
+                for (var i = 0; i < subTypeSize; i++) {
+                    var subTypeCode = summaryCalibers[0].orderAndInvoices[i].productType;
+                    $('#biBody').append('<tr class="center-text" id="' + subTypeTrId + subTypeCode + '"></tr>')
+                    if (firstTrId == null) {
+                        firstTrId = subTypeTrId + subTypeCode;
+                        $('#' + firstTrId).append('<td class="table-light center-text" id="' + deptData.businessDepartmentType + '">' + deptData.businessDepartmentName + '</td>')
+                    }
+                    deptUsedCol++;
+                    //创建品牌
+                    if (i == 0) {
+                        $('#' + subTypeTrId + subTypeCode).append('<td class="table-light center-text" rowspan=' + (subTypeSize + 1) + '">' + brandSingle.brandName + '</td>')
+                    }
+                }
+                //总计
+                $('#biBody').append('<tr class="center-text" id="' + subTypeTrId + 'summary"></tr>')
+                $('#' + subTypeTrId + 'summary').append('<td class="table-secondary center-text">小计</td>')
+                deptUsedCol++;
+                //统计口径
+                var summaryCalibersMap = buildCaliberData(summaryCalibers);
+                //根据标题统计口径for
+                $.each(summaryCaliberSort, function (summaryCalibersIndex, summaryCaliberKey) {
+                    var value = summaryCalibersMap.get(summaryCaliberKey);
+                    var subTypeData = value.orderAndInvoices;
+                    var subTypeDataMap = buildSubTypeData(subTypeData);
+                    $.each(subTypeData, function (subTypeDataIndex, value) {
+                        //默认返回类型都有数据
+                        if (summaryCalibersIndex == 0) {
+                            //具体产品
+                            $('#' + subTypeTrId + value.productType).append('<td class="table-light center-text">' + value.productType + '</td>')
+                        }
+                        //创建td
+                        //对应到subType
+                        $('#' + subTypeTrId + value.productType).append('<td class="table-light center-text">' + subTypeDataMap.get(value.productType).invoiceNum + '</td>')
+                        $('#' + subTypeTrId + value.productType).append('<td class="table-success center-text">' + subTypeDataMap.get(value.productType).orderNum + '</td>')
+                        //备注td补全
+                        if (summaryCalibersIndex == (summaryCaliberSort.length - 1)) {
+                            $('#' + subTypeTrId + value.productType).append('<td class="table-light center-text" contenteditable="true"></td>');
+                        }
+                    });
+                    //品牌总计，获取统计口径
+                    $('#' + subTypeTrId + 'summary').append('<td class="table-secondary center-text">' + value.invoiceNum + '</td>')
+                    $('#' + subTypeTrId + 'summary').append('<td class="table-secondary center-text">' + value.orderNum + '</td>')
+                    //备注td补全
+                    if (summaryCalibersIndex == (summaryCaliberSort.length - 1)) {
+                        $('#' + subTypeTrId + 'summary').append('<td class="table-light center-text" contenteditable="true"></td>');
+                    }
+                });
+            });
+            // $('#' + subTypeTrId + 'summary').append('<td class="table-light center-text"></td>');
+            $('#' + deptData.businessDepartmentType).attr("rowspan", deptUsedCol + 1);
+            $('#biBody').append('<tr class="center-text" id="' + deptData.businessDepartmentType + '_summary"></tr>')
+            $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-primary center-text" colspan="2">' + deptData.businessDepartmentName + '总计</td>')
+            //统计口径
+            //按照统计口径分类
+            var allSummaryCalibers = buildCaliberData(deptData.summaryCalibers);
+            $.each(summaryCaliberSort, function (summaryCalibersIndex, summaryCaliberKey) {
+                var value = allSummaryCalibers.get(summaryCaliberKey);
+                $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-primary center-text">' + value.invoiceNum + '</td>')
+                $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-primary center-text">' + value.orderNum + '</td>')
+            });
+            //备注td补全
+            $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-light center-text" contenteditable="true"></td>')
+            //添加汇总
+            // $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-primary center-text">' + subTypeDataMap.get(value.productType).orderNum + '</td>')
+        });
+    }
+
+    $(document).ready(function () {
+        //日历
+        $('#datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true
+        });
+        $('.selectpicker').selectpicker();
+
+        // var requestData = {
+        //     topic: "value1",
+        //     message: "value2"
+        // };
+        // 发送 Ajax 请求
+        // $.ajax({
+        //     url: "/test/abc",
+        //     method: "GET",
+        //     data: requestData, // 将参数放在这里
+        //     dataType: "json",
+        //     success: function (data) {
+        //         var summaryData = JSON.stringify(data);
+        //         if (data.code != 200) {
+        //             console.log("Error fetching data from backend: " + error);
+        //         }
+        //         var dataList = data.data;
+        //         //标题处理，返回统计口径排序的列表
+        //         var summaryCaliberSort = handleTitle(dataList);
+        //         $.each(dataList, function (dataListIndex, deptData) {
+        //             var deptUsedCol = 0;
+        //             var firstTrId = null;
+        //             //品牌
+        //             var brandData = deptData.brandOrderAndInvoiceSummaries;
+        //             $.each(brandData, function (brandDataIndex, brandSingle) {
+        //                 //统计口径
+        //                 var summaryCalibers = brandSingle.orderAndInvoices;
+        //                 var subTypeSize = summaryCalibers[0].orderAndInvoices.length;
+        //                 //创建tr
+        //                 var subTypeTrId = deptData.businessDepartmentType + '_' + brandSingle.brand + '_';
+        //                 for (var i = 0; i < subTypeSize; i++) {
+        //                     var subTypeCode = summaryCalibers[0].orderAndInvoices[i].productType;
+        //                     $('#biBody').append('<tr class="center-text" id="' + subTypeTrId + subTypeCode + '"></tr>')
+        //                     if (firstTrId == null) {
+        //                         firstTrId = subTypeTrId + subTypeCode;
+        //                         $('#' + firstTrId).append('<td class="table-light center-text" id="' + deptData.businessDepartmentType + '">' + deptData.businessDepartmentName + '</td>')
+        //                     }
+        //                     deptUsedCol++;
+        //                     //创建品牌
+        //                     if (i == 0) {
+        //                         $('#' + subTypeTrId + subTypeCode).append('<td class="table-light center-text" rowspan=' + (subTypeSize + 1) + '">' + brandSingle.brandName + '</td>')
+        //                     }
+        //                 }
+        //                 //总计
+        //                 $('#biBody').append('<tr class="center-text" id="' + subTypeTrId + 'summary"></tr>')
+        //                 $('#' + subTypeTrId + 'summary').append('<td class="table-secondary center-text">小计</td>')
+        //                 deptUsedCol++;
+        //                 //统计口径
+        //                 var summaryCalibersMap = buildCaliberData(summaryCalibers);
+        //                 //根据标题统计口径for
+        //                 $.each(summaryCaliberSort, function (summaryCalibersIndex, summaryCaliberKey) {
+        //                     var value = summaryCalibersMap.get(summaryCaliberKey);
+        //                     var subTypeData = value.orderAndInvoices;
+        //                     var subTypeDataMap = buildSubTypeData(subTypeData);
+        //                     $.each(subTypeData, function (subTypeDataIndex, value) {
+        //                         //默认返回类型都有数据
+        //                         if (summaryCalibersIndex == 0) {
+        //                             //具体产品
+        //                             $('#' + subTypeTrId + value.productType).append('<td class="table-light center-text">' + value.productType + '</td>')
+        //                         }
+        //                         //创建td
+        //                         //对应到subType
+        //                         $('#' + subTypeTrId + value.productType).append('<td class="table-light center-text">' + subTypeDataMap.get(value.productType).invoiceNum + '</td>')
+        //                         $('#' + subTypeTrId + value.productType).append('<td class="table-success center-text">' + subTypeDataMap.get(value.productType).orderNum + '</td>')
+        //                         //备注td补全
+        //                         if (summaryCalibersIndex == (summaryCaliberSort.length - 1)) {
+        //                             $('#' + subTypeTrId + value.productType).append('<td class="table-light center-text"></td>');
+        //                         }
+        //                     });
+        //                     //品牌总计，获取统计口径
+        //                     $('#' + subTypeTrId + 'summary').append('<td class="table-secondary center-text">' + value.invoiceNum + '</td>')
+        //                     $('#' + subTypeTrId + 'summary').append('<td class="table-secondary center-text">' + value.orderNum + '</td>')
+        //                     //备注td补全
+        //                     if (summaryCalibersIndex == (summaryCaliberSort.length - 1)) {
+        //                         $('#' + subTypeTrId + 'summary').append('<td class="table-light center-text"></td>');
+        //                     }
+        //                 });
+        //             });
+        //             // $('#' + subTypeTrId + 'summary').append('<td class="table-light center-text"></td>');
+        //             $('#' + deptData.businessDepartmentType).attr("rowspan", deptUsedCol + 1);
+        //             $('#biBody').append('<tr class="center-text" id="' + deptData.businessDepartmentType + '_summary"></tr>')
+        //             $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-primary center-text" colspan="2">' + deptData.businessDepartmentName + '总计</td>')
+        //             //统计口径
+        //             //按照统计口径分类
+        //             var allSummaryCalibers = buildCaliberData(deptData.summaryCalibers);
+        //             $.each(summaryCaliberSort, function (summaryCalibersIndex, summaryCaliberKey) {
+        //                 var value = allSummaryCalibers.get(summaryCaliberKey);
+        //                 $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-primary center-text">' + value.invoiceNum + '</td>')
+        //                 $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-primary center-text">' + value.orderNum + '</td>')
+        //             });
+        //             $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-light center-text"></td>')
+        //             //添加汇总
+        //             // $('#' + deptData.businessDepartmentType + '_summary').append('<td class="table-primary center-text">' + subTypeDataMap.get(value.productType).orderNum + '</td>')
+        //         });
+        //         // 处理成功响应
+        //         // $("#result").html("Data from Backend: " + JSON.stringify(data));
+        //     },
+        //     error: function (xhr, status, error) {
+        //         // 处理错误响应
+        //         console.error("Error fetching data from backend: " + error);
+        //     }
+        // });
     });
 
     /**
@@ -190,7 +389,7 @@
         var summaryCaliberSort = [];
         $.each(singleOrderAndInvoices, function (index, value) {
             summaryCaliberSort.push(value.summaryCaliber);
-            $('#remark').before('<td class="table-primary center-text" colspan="2">' + value.summaryCaliber + '</td>')
+            $('#remark').before('<td class="table-primary center-text" colspan="2">' + value.summaryCaliberDetail.timeDetail + '累计</td>')
             $('#tt').append('<td class="table-primary center-text">开票数</td>')
             $('#tt').append('<td class="table-info center-text">订单数</td>')
         });
@@ -225,6 +424,39 @@
         return myMap;
     }
 
+    /**
+     * 刷新表格
+     */
+    function refreshTable() {
+        $('#orderAndInvoiceBi').empty();
+        $('#orderAndInvoiceBi').append('<tbody id="biBody"></tbody>');
+        $('#biBody').append('<tr id="big_title"></tr>');
+        $('#biBody').append('<tr id="main_title"></tr>');
+        $('#main_title').append('<td rowSpan="2" class="table-primary center-text">模块</td>');
+        $('#main_title').append('<td rowSpan="2" class="table-primary center-text">品牌</td>');
+        $('#main_title').append('<td rowSpan="2" class="table-primary center-text" id="product-title">产品</td>');
+        $('#main_title').append('<td rowSpan="2" class="table-primary center-text" id="remark">备注</td>');
+        $('#biBody').append('<tr id="tt"></tr>');
+
+    }
+
+    function refreshTitle(colSpanCount) {
+        $('#big_title').append('<td colSpan="'+colSpanCount+'" class="table-light center-text" contenteditable="true" id="big_title_content">强冠BG订单及开票信息</td>')
+    }
+
+
+    function exportToImage() {
+        // 获取表格
+        var table = document.getElementById("orderAndInvoiceBi");
+        // 使用 html2canvas 将表格转换为图片
+        html2canvas(table).then(function(canvas) {
+            // 将图片数据转换成 Blob 对象
+            canvas.toBlob(function(blob) {
+                // 使用 FileSaver.js 保存文件
+                saveAs(blob, $('#big_title_content').text()+".png");
+            });
+        });
+    }
 
 </script>
 

@@ -24,43 +24,41 @@
     </sql>
 
     <select id="listErpSidSummary" resultType="com.zhongji.simpleshelf.dao.domain.StatisticsSummary">
-        SELECT
-        SUBSTR(yzvin001.cheh,-2) as sub_type,
-        count(*) as num
-        FROM
-        cwfl_new,
-        tycw101,
-        tycp201,
-        yzvin001,
-        tycw100,
-        tyjcdict,
-        tyjc041,
-        tyjc021,
-        tysc301,
-        tyjc061,
-        tyxs211,
-        tycp202
-        WHERE
-        tycw100.faph = tycw101.faph
-        AND tycw100.danjlb = tycw101.danjlb
-        AND tycw100.danjlb = tyjcdict.zhidxh ( + )
-        AND tyjcdict.zhidlb = '1603'
-        AND tyjcdict.zhidxh LIKE 'S%'
-        AND tycw101.vin = yzvin001.vin ( + )
-        AND tycw100.bizh = tyjc041.huob ( + )
-        AND tycw100.kehu = tyjc021.kehu ( + )
-        AND yzvin001.jisgf = tycp201.xiangm ( + )
-        AND tycp201.cwfl1 = cwfl_new.fl ( + )
-        AND tycw101.vin = tysc301.vin ( + )
-        AND tycw101.wuliao = tyjc061.wuliao ( + )
-        AND tycp201.gongcbh = tycp202.gongcbh ( + )
-        AND tycp202.heth = tyxs211.heth ( + )
-        AND tycw100.kaiprq >= #{startDate}
-        AND tycw100.kaiprq &lt; #{endDate}
-        AND REGEXP_LIKE(SUBSTR(yzvin001.cheh,-2),'^([a-zA-Z]|-)*$')
-        AND tycp201.naiwx = '内销'
-        AND cwfl_new.shuom like '%液罐%'
-        GROUP BY SUBSTR(yzvin001.cheh,-2)
+        SELECT SUBSTR(yzvin001.cheh, -2) as sub_type,
+               count(*)                  as num
+        FROM cwfl_new,
+             tycw101,
+             tycp201,
+             yzvin001,
+             tycw100,
+             tyjcdict,
+             tyjc041,
+             tyjc021,
+             tysc301,
+             tyjc061,
+             tyxs211,
+             tycp202
+        WHERE tycw100.faph = tycw101.faph
+          AND tycw100.danjlb = tycw101.danjlb
+          AND tycw100.danjlb = tyjcdict.zhidxh(+)
+          AND tyjcdict.zhidlb = '1603'
+          AND tyjcdict.zhidxh LIKE 'S%'
+          AND tycw101.vin = yzvin001.vin(+)
+          AND tycw100.bizh = tyjc041.huob(+)
+          AND tycw100.kehu = tyjc021.kehu(+)
+          AND yzvin001.jisgf = tycp201.xiangm(+)
+          AND tycp201.cwfl1 = cwfl_new.fl(+)
+          AND tycw101.vin = tysc301.vin(+)
+          AND tycw101.wuliao = tyjc061.wuliao(+)
+          AND tycp201.gongcbh = tycp202.gongcbh(+)
+          AND tycp202.heth = tyxs211.heth(+)
+          AND tycw100.kaiprq >= #{startDate}
+          AND tycw100.kaiprq &lt; #{endDate}
+          AND REGEXP_LIKE(SUBSTR(yzvin001.cheh, -2), '^([a-zA-Z]|-)*$')
+          AND tyjcdict.shuom IN ('机动车专用发票', '销售增值税发票')
+          AND tycp201.naiwx !='外销'
+	    AND （cwfl_new.shuom like '%液罐%' or cwfl_new.shuom like '%箱%'）
+        GROUP BY SUBSTR(yzvin001.cheh, -2)
 
     </select>
 

@@ -5,9 +5,9 @@ package com.zhongji.simpleshelf.common.enums;
  * 时间
  */
 public enum TimeDescEnum {
-    PRE("PRE", "前"),
-    NOW("NOW", "当前"),
-    NEXT("NEXT", "下一个"),
+    PRE("PRE", "上"),
+    NOW("NOW", "本"),
+    NEXT("NEXT", "下"),
 
 
     ;

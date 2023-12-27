@@ -37,8 +37,8 @@ public class TonghuaOrderAndInvoiceProcessor extends AbstractOrderAndInvoiceProc
         //查询开票数
         List<StatisticsSummary> statisticsSummaries = cwflNewService.listErpSidSummary(startDate, endDate);
         //计算总数
-        if (CollectionUtils.isEmpty(statisticsSummaries)) {
-            return null;
+        if (statisticsSummaries == null) {
+            statisticsSummaries = new ArrayList<>();
         }
         Integer invoiceNum = 0;
         OrderAndInvoiceSummary orderAndInvoiceSummary = new OrderAndInvoiceSummary();

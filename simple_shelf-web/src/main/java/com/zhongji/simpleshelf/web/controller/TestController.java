@@ -1,5 +1,6 @@
 package com.zhongji.simpleshelf.web.controller;
 
+import com.zhongji.simpleshelf.common.bo.bi.SummaryCaliber;
 import com.zhongji.simpleshelf.common.bo.bi.orderandinvoice.BDOrderAndInvoiceSummary;
 import com.zhongji.simpleshelf.common.enums.TimeDescEnum;
 import com.zhongji.simpleshelf.core.service.impl.BiStatisticsSummaryServiceImpl;
@@ -43,14 +44,14 @@ public class TestController {
     @Autowired
     private HttpApiClient httpApiClient;
 
-    @Autowired
-    private KafkaProducerClient kafkaProducerClient;
+//    @Autowired
+//    private KafkaProducerClient kafkaProducerClient;
 
-    @Resource(name = "stringRedisTemplate")
-    RedisTemplate redisTemplate;
+//    @Resource(name = "stringRedisTemplate")
+//    RedisTemplate redisTemplate;
 
-    @Autowired
-    private KgBootRedisClient kgBootRedisClient;
+//    @Autowired
+//    private KgBootRedisClient kgBootRedisClient;
 
 
     //    @Resource(name = "kgBootRabbitTemplate")
@@ -63,7 +64,7 @@ public class TestController {
 
     @GetMapping(value = "/abc")
     public BaseWebResponse<List<BDOrderAndInvoiceSummary>> test(@RequestParam String topic,
-                                        @RequestParam String message) {
+                                                                @RequestParam String message) {
 //        kgBootRabbitmqClient.syncSend(topic,message);
 //        kgBootRabbitmqClient.send(topic, "hello");
 //        rabbitTemplate.convertAndSend(exchangeName,"hello","hello world", correlationData);
@@ -113,7 +114,24 @@ public class TestController {
         List<String> list = new ArrayList<>();
         list.add(TimeEnum.MONTH.getCode());
         list.add(TimeEnum.WEEK.getCode());
-        List<BDOrderAndInvoiceSummary> bdOrderAndInvoiceSummaries = biStatisticsSummaryService.buildBDOrderAndInvoiceSummary(TimeDescEnum.PRE.name(), list);
+        List<SummaryCaliber> summaryCalibers = new ArrayList<>();
+        SummaryCaliber weekSummaryCaliber = new SummaryCaliber();
+        weekSummaryCaliber.setTimeUnit(TimeEnum.WEEK.getCode());
+        weekSummaryCaliber.setTimeDesc(TimeDescEnum.PRE.getCode());
+        SummaryCaliber monthSummaryCaliber = new SummaryCaliber();
+        monthSummaryCaliber.setTimeUnit(TimeEnum.MONTH.getCode());
+        monthSummaryCaliber.setTimeDesc(TimeDescEnum.PRE.getCode());
+
+        SummaryCaliber yearSummaryCaliber = new SummaryCaliber();
+        yearSummaryCaliber.setTimeUnit(TimeEnum.YEAR.getCode());
+        yearSummaryCaliber.setTimeDesc(TimeDescEnum.PRE.getCode());
+
+        summaryCalibers.add(weekSummaryCaliber);
+        summaryCalibers.add(monthSummaryCaliber);
+        summaryCalibers.add(yearSummaryCaliber);
+
+//        List<BDOrderAndInvoiceSummary> bdOrderAndInvoiceSummaries = biStatisticsSummaryService.buildBDOrderAndInvoiceSummary(TimeDescEnum.PRE.name(), list);
+        List<BDOrderAndInvoiceSummary> bdOrderAndInvoiceSummaries = biStatisticsSummaryService.buildBDOrderAndInvoiceSummary(new Date(), summaryCalibers);
 
 //        List<StatisticsSummary> statisticsSummaries = cwflNewService.listErpSidSummary(startDate, endDate);
 

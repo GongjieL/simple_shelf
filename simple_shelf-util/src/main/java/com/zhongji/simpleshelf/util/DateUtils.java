@@ -3,14 +3,26 @@ package com.zhongji.simpleshelf.util;
 import com.zhongji.simpleshelf.common.enums.TimeEnum;
 
 import java.time.DayOfWeek;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalField;
+import java.util.Date;
 
 public class DateUtils {
 
     private static final DateTimeFormatter formatter =
             DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+
+    public static String format(Date date) {
+        return format(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+    }
+
+    public static String format(LocalDate localDate) {
+        return formatter.format(localDate);
+    }
 
     /**
      * 获取间隔时间
