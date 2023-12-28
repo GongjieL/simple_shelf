@@ -22,8 +22,8 @@ import java.util.List;
 public class DingTalkInnerClient {
 
 
-    private static String clientId = "dingfyab7fsucs50om2h";
-    private static String clientSecret = "t1rJ0wImdW5Vi-l1jfJvJjlJXaK4PRd6r1TQiKWLyzCqtIjf-ihrlxfXOJsl8Mzw";
+    private static String clientId = "*";
+    private static String clientSecret = "*";
 
 
     /**
