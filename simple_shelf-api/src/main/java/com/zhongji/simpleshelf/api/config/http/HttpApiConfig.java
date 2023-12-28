@@ -2,6 +2,7 @@ package com.zhongji.simpleshelf.api.config.http;
 
 import com.zhongji.simpleshelf.api.client.http.HttpApiClient;
 import com.zhongji.simpleshelf.api.strategy.http.CommonRespProcessor;
+import com.zhongji.simpleshelf.api.strategy.http.ZhongjiHrRespProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -45,6 +46,12 @@ public class HttpApiConfig {
     @Bean
     CommonRespProcessor commonRespProcessor() {
         return new CommonRespProcessor();
+    }
+
+
+    @Bean
+    ZhongjiHrRespProcessor zhongjiHrRespProcessor() {
+        return new ZhongjiHrRespProcessor();
     }
 
 }

@@ -65,9 +65,9 @@ public class HttpApiClient {
         }
         final String[] variables = {""};
         urlVariables.forEach((k, v) -> {
-            variables[0] += StringUtils.join(k, "=", v);
+            variables[0] += StringUtils.join(k, "=", v, "&");
         });
-        return StringUtils.join(url, "?", variables[0]);
+        return StringUtils.join(url, "?", variables[0].substring(0, variables[0].length()-1));
     }
 
 

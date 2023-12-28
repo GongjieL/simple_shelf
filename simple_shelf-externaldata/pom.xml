@@ -9,22 +9,14 @@
 		<relativePath>../pom.xml</relativePath><!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.zhongji</groupId>
-	<artifactId>simple_shelf-core</artifactId>
+	<artifactId>simple_shelf-externaldata</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>simple_shelf-core</name>
-	<description>simple_shelf-core</description>
+	<name>simple_shelf-externaldata</name>
+	<description>外部获取</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>com.zhongji</groupId>
-			<artifactId>simple_shelf-dao</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.zhongji</groupId>
-			<artifactId>simple_shelf-util</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>com.zhongji</groupId>
@@ -37,8 +29,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.zhongji</groupId>
-			<artifactId>simple_shelf-externaldata</artifactId>
+			<groupId>com.aliyun</groupId>
+			<artifactId>alibaba-dingtalk-service-sdk</artifactId>
 		</dependency>
 
 	</dependencies>

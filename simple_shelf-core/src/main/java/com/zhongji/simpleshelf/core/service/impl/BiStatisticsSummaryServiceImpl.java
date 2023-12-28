@@ -306,7 +306,8 @@ public class BiStatisticsSummaryServiceImpl implements BiStatisticsSummaryServic
         //订单总数
         invoiceSummary.setOrderNum(orderSummary.getOrderNum());
         //合并
-        Map<String, OrderAndInvoiceBo> unionData = Stream.concat(invoiceSummary.getOrderAndInvoices().stream(), orderSummary.getOrderAndInvoices().stream()).collect(Collectors.toMap(OrderAndInvoiceBo::getProductType, person -> person,
+        Map<String, OrderAndInvoiceBo> unionData = Stream.concat(invoiceSummary.getOrderAndInvoices().stream(), orderSummary.getOrderAndInvoices().stream()).
+                collect(Collectors.toMap(OrderAndInvoiceBo::getProductType, person -> person,
                 (existing, replacement) -> {// 在合并时填充 null 值
                     existing.setOrderNum(replacement.getOrderNum());
                     return existing;
