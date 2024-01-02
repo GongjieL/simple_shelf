@@ -22,11 +22,11 @@ public class ZhongjiHrServiceClient {
 
     private static final Integer DEFAULT_PAGE_SIZE = 2000;
 
-    private static final String API_KEY = "*";
-    private static final String P_PWD = "*";
-    private static final String P_USER = "*";
-    private static final String DEPT_URL = "*";
-    private static final String USER_URL = "*";
+    private static final String API_KEY = "4haup7eTq5YFabbd6djBdxC6Gc5VKKX9";
+    private static final String P_PWD = "B1EBB4016FAB4F5FBF8207B4180F3672";
+    private static final String P_USER = "cimc_whrj";
+    private static final String DEPT_URL = "https://awsapi.cimc.cn/env-101/por-10/hrapi/hrms/cimc_org_unit_wbs_standard.service";
+    private static final String USER_URL = "https://awsapi.cimc.cn/env-101/por-10/hrapi/hrms/cimc_lbr_employee_wbs_standard.service";
 
 
     /**

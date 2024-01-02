@@ -1,5 +1,6 @@
 package com.zhongji.simpleshelf.externaldata.dingtalk;
 
+import com.alibaba.fastjson.JSON;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.OapiGettokenRequest;
@@ -22,8 +23,8 @@ import java.util.List;
 public class DingTalkInnerClient {
 
 
-    private static String clientId = "*";
-    private static String clientSecret = "*";
+    private static String clientId = "dingfyab7fsucs50om2h";
+    private static String clientSecret = "t1rJ0wImdW5Vi-l1jfJvJjlJXaK4PRd6r1TQiKWLyzCqtIjf-ihrlxfXOJsl8Mzw";
 
 
     /**
@@ -45,9 +46,21 @@ public class DingTalkInnerClient {
             req.setSourceIdentifier(zhongjiDepartment.getDeptId());
             req.setBrief(zhongjiDepartment.getDeptDesc());
             OapiV2DepartmentCreateResponse rsp = client.execute(req, token);
-            return rsp.getResult().getDeptId() + "";
+            if (!rsp.isSuccess()) {
+                //找到父节点
+                if (rsp.getErrcode().equals(111)) {
+                    //之前的节点
+                    //todo 获取父的子列表，筛选同名称
+                    return null;
+                }
+            }
+            String deptId = rsp.getResult().getDeptId() + "";
+            zhongjiDepartment.setOuterDeptId(deptId);
+            return deptId;
         } catch (ApiException e) {
-            //todo 报错信息
+
+        } catch (Exception e) {
+            System.out.println(JSON.toJSONString(zhongjiDepartment));
         }
         return null;
 

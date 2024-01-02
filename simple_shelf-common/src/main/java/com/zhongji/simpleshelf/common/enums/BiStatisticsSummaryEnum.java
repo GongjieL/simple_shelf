@@ -7,7 +7,7 @@ public enum BiStatisticsSummaryEnum {
     TY("TY","液罐"),
     JY("JY","液罐2"),
     TS("TS","液罐3"),
-    YY("YY","液罐4"),
+    YY("YY","不锈钢液罐"),
     OTHER("OTHER","其他"),
     ;
 

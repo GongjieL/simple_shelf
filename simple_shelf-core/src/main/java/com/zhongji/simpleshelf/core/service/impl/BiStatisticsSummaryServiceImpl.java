@@ -1,18 +1,17 @@
 package com.zhongji.simpleshelf.core.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.zhongji.simpleshelf.common.bo.bi.SummaryCaliber;
-import com.zhongji.simpleshelf.common.enums.BrandEnum;
-import com.zhongji.simpleshelf.common.enums.BusinessDeptEnum;
-import com.zhongji.simpleshelf.core.service.BiStatisticsSummaryService;
-import com.zhongji.simpleshelf.core.strategy.AbstractOrderAndInvoiceProcessor;
-import com.zhongji.simpleshelf.core.strategy.OrderAndInvoiceProcessorFactory;
 import com.zhongji.simpleshelf.common.bo.bi.orderandinvoice.BDOrderAndInvoiceSummary;
 import com.zhongji.simpleshelf.common.bo.bi.orderandinvoice.BrandOrderAndInvoiceSummary;
 import com.zhongji.simpleshelf.common.bo.bi.orderandinvoice.OrderAndInvoiceBo;
 import com.zhongji.simpleshelf.common.bo.bi.orderandinvoice.OrderAndInvoiceSummary;
+import com.zhongji.simpleshelf.common.enums.BrandEnum;
+import com.zhongji.simpleshelf.common.enums.BusinessDeptEnum;
 import com.zhongji.simpleshelf.common.enums.TimeDescEnum;
 import com.zhongji.simpleshelf.common.enums.TimeEnum;
+import com.zhongji.simpleshelf.core.service.BiStatisticsSummaryService;
+import com.zhongji.simpleshelf.core.strategy.AbstractOrderAndInvoiceProcessor;
+import com.zhongji.simpleshelf.core.strategy.OrderAndInvoiceProcessorFactory;
 import com.zhongji.simpleshelf.util.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
