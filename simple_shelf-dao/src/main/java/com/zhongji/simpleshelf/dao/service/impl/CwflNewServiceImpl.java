@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author gongjie
@@ -34,7 +35,16 @@ public class CwflNewServiceImpl extends ServiceImpl<CwflNewMapper, CwflNew>
             s.setSubTypName(
                     BiStatisticsSummaryEnum.getByCode(s.getSubType()).getName()
             );
+            s.setSubType(
+                    BiStatisticsSummaryEnum.getByCode(s.getSubType()).getSubType()
+            );
         });
+        //排序
+        statisticsSummaries.sort((s1,s2)->BiStatisticsSummaryEnum.getByCode(s1.getSubType()).getOrder()
+                .compareTo(BiStatisticsSummaryEnum.getByCode(s2.getSubType()).getOrder()));
+        //暂时去除other
+        statisticsSummaries = statisticsSummaries.stream().filter(statisticsSummary ->
+                !BiStatisticsSummaryEnum.OTHER.getSubType().equals(statisticsSummary.getSubType())).collect(Collectors.toList());
         return statisticsSummaries;
     }
 }

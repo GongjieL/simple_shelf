@@ -7,6 +7,11 @@ public class OrderAndInvoiceBo {
     private String productType;
 
     /**
+     * 类型名称
+     */
+    private String productTypeName;
+
+    /**
      * 订单数
      */
     private Integer orderNum=0;
@@ -39,5 +44,13 @@ public class OrderAndInvoiceBo {
 
     public void setInvoiceNum(Integer invoiceNum) {
         this.invoiceNum = invoiceNum;
+    }
+
+    public String getProductTypeName() {
+        return productTypeName;
+    }
+
+    public void setProductTypeName(String productTypeName) {
+        this.productTypeName = productTypeName;
     }
 }

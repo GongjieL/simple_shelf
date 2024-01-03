@@ -24,7 +24,13 @@
     </sql>
 
     <select id="listErpSidSummary" resultType="com.zhongji.simpleshelf.dao.domain.StatisticsSummary">
-        SELECT SUBSTR(yzvin001.cheh, -2) as sub_type,
+        SELECT CASE
+                   WHEN (cwfl_new.shuom LIKE '%液罐%' OR cwfl_new.shuom LIKE '%箱%') and cwfl_new.shuom like '%不锈钢%' THEN 'YY'
+                   WHEN (cwfl_new.shuom LIKE '%液罐%' OR cwfl_new.shuom LIKE '%箱%') and cwfl_new.shuom like '%碳钢%' THEN 'TY'
+                   WHEN (cwfl_new.shuom LIKE '%液罐%' OR cwfl_new.shuom LIKE '%箱%') and cwfl_new.shuom like '%铝合金%' THEN 'JY'
+                   WHEN cwfl_new.shuom LIKE '%粉罐%' AND tyjc061.shuom NOT LIKE '%水泥%' AND tyjc061.shuom NOT LIKE '%卧罐%' THEN 'UY'
+                   ELSE 'Other'
+                   END as sub_type,
                count(*)                  as num
         FROM cwfl_new,
              tycw101,
@@ -54,11 +60,16 @@
           AND tycp202.heth = tyxs211.heth(+)
           AND tycw100.kaiprq >= #{startDate}
           AND tycw100.kaiprq &lt; #{endDate}
-          AND REGEXP_LIKE(SUBSTR(yzvin001.cheh, -2), '^([a-zA-Z]|-)*$')
-          AND tyjcdict.shuom IN ('机动车专用发票', '销售增值税发票')
-          AND tycp201.naiwx !='外销'
-	    AND （cwfl_new.shuom like '%液罐%' or cwfl_new.shuom like '%箱%'）
-        GROUP BY SUBSTR(yzvin001.cheh, -2)
+          AND tyjcdict.shuom IN ( '机动车专用发票', '销售增值税发票' )
+          AND tycp201.naiwx != '外销'
+	      AND tycw100.kehsm NOT IN ( '芜湖中集瑞江汽车有限公司', '山东万事达专用汽车制造有限公司', '洛阳中集凌宇液罐工厂' )
+        GROUP BY CASE
+            WHEN (cwfl_new.shuom LIKE '%液罐%' OR cwfl_new.shuom LIKE '%箱%') and cwfl_new.shuom like '%不锈钢%' THEN 'YY'
+            WHEN (cwfl_new.shuom LIKE '%液罐%' OR cwfl_new.shuom LIKE '%箱%') and cwfl_new.shuom like '%碳钢%' THEN 'TY'
+            WHEN (cwfl_new.shuom LIKE '%液罐%' OR cwfl_new.shuom LIKE '%箱%') and cwfl_new.shuom like '%铝合金%' THEN 'JY'
+            WHEN cwfl_new.shuom LIKE '%粉罐%' AND tyjc061.shuom NOT LIKE '%水泥%' AND tyjc061.shuom NOT LIKE '%卧罐%' THEN 'UY'
+            ELSE 'Other'
+        END
 
     </select>
 

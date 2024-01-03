@@ -5,10 +5,7 @@ import com.zhongji.simpleshelf.common.bo.bi.orderandinvoice.BDOrderAndInvoiceSum
 import com.zhongji.simpleshelf.common.bo.bi.orderandinvoice.BrandOrderAndInvoiceSummary;
 import com.zhongji.simpleshelf.common.bo.bi.orderandinvoice.OrderAndInvoiceBo;
 import com.zhongji.simpleshelf.common.bo.bi.orderandinvoice.OrderAndInvoiceSummary;
-import com.zhongji.simpleshelf.common.enums.BrandEnum;
-import com.zhongji.simpleshelf.common.enums.BusinessDeptEnum;
-import com.zhongji.simpleshelf.common.enums.TimeDescEnum;
-import com.zhongji.simpleshelf.common.enums.TimeEnum;
+import com.zhongji.simpleshelf.common.enums.*;
 import com.zhongji.simpleshelf.core.service.BiStatisticsSummaryService;
 import com.zhongji.simpleshelf.core.strategy.AbstractOrderAndInvoiceProcessor;
 import com.zhongji.simpleshelf.core.strategy.OrderAndInvoiceProcessorFactory;
@@ -133,6 +130,7 @@ public class BiStatisticsSummaryServiceImpl implements BiStatisticsSummaryServic
 
     /**
      * 时间详情
+     *
      * @param startDate
      * @param endDate
      * @param timeEnum
@@ -212,6 +210,10 @@ public class BiStatisticsSummaryServiceImpl implements BiStatisticsSummaryServic
             bdOrderAndInvoiceSummary.setSummaryCalibers(new ArrayList<>(summaryCalibers.values()));
             bdOrderAndInvoiceSummaries.add(bdOrderAndInvoiceSummary);
         });
+        //排序
+        bdOrderAndInvoiceSummaries.sort((b1,b2)->BusinessDeptEnum.getByCode(b1.getBusinessDepartmentType()).getOrder().compareTo(
+                BusinessDeptEnum.getByCode(b2.getBusinessDepartmentType()).getOrder()
+        ));
         return bdOrderAndInvoiceSummaries;
     }
 
@@ -253,6 +255,7 @@ public class BiStatisticsSummaryServiceImpl implements BiStatisticsSummaryServic
                 for (String type : missingInList) {
                     OrderAndInvoiceBo orderAndInvoiceBo = new OrderAndInvoiceBo();
                     orderAndInvoiceBo.setProductType(type);
+                    orderAndInvoiceBo.setProductTypeName(BiStatisticsSummaryEnum.getByCode(type).getName());
                     orderAndInvoice.getOrderAndInvoices().add(orderAndInvoiceBo);
                 }
             }
@@ -307,10 +310,10 @@ public class BiStatisticsSummaryServiceImpl implements BiStatisticsSummaryServic
         //合并
         Map<String, OrderAndInvoiceBo> unionData = Stream.concat(invoiceSummary.getOrderAndInvoices().stream(), orderSummary.getOrderAndInvoices().stream()).
                 collect(Collectors.toMap(OrderAndInvoiceBo::getProductType, person -> person,
-                (existing, replacement) -> {// 在合并时填充 null 值
-                    existing.setOrderNum(replacement.getOrderNum());
-                    return existing;
-                }));
+                        (existing, replacement) -> {// 在合并时填充 null 值
+                            existing.setOrderNum(replacement.getOrderNum());
+                            return existing;
+                        }));
         //开票列表
         orderSummary.setOrderAndInvoices(new ArrayList<>(unionData.values()));
         return orderSummary;

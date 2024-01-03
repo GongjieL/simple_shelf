@@ -49,6 +49,7 @@ public class TonghuaOrderAndInvoiceProcessor extends AbstractOrderAndInvoiceProc
             invoiceNum += selfInvoiceNum;
             OrderAndInvoiceBo orderAndInvoiceBo = new OrderAndInvoiceBo();
             orderAndInvoiceBo.setProductType(statisticsSummary.getSubType());
+            orderAndInvoiceBo.setProductTypeName(statisticsSummary.getSubTypName());
             orderAndInvoiceBo.setInvoiceNum(selfInvoiceNum);
             orderAndInvoiceSummary.getOrderAndInvoices().add(orderAndInvoiceBo);
         }
